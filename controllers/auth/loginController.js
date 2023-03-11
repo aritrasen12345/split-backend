@@ -6,19 +6,21 @@ import Jwt from "jsonwebtoken";
 const loginController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({
-      email: email,
-      verified: true,
+
+    const foundUser = await User.findOne({
+      email,
+      isVerified: true,
       isDeleted: false,
-    });
-    if (!user) {
+    }).select("name email password _id");
+
+    if (!foundUser) {
       return res.status(404).json({
         status: false,
         message: "User not found!",
         data: "",
       });
     }
-    const matchedPassword = await bcrypt.compare(password, user.password);
+    const matchedPassword = await bcrypt.compare(password, foundUser.password);
 
     if (!matchedPassword) {
       return res.status(406).json({
@@ -30,23 +32,22 @@ const loginController = async (req, res, next) => {
 
     const token = Jwt.sign(
       {
-        id: user._id,
+        id: foundUser._id,
       },
       config.JWT_ACTIVATE,
       {
         expiresIn: "7d",
       }
     );
-    const loginDetails = { ...user._doc };
-    delete loginDetails.password;
-    delete loginDetails.expTime;
+    const logInDetails = { ...foundUser._doc };
+    delete logInDetails.password;
 
     return res.status(200).json({
       status: true,
-      message: "Welcome.....",
+      message: "LoggedIn Successfully!",
       data: {
-        token: token,
-        loginDetails,
+        token,
+        logInDetails,
       },
     });
   } catch (err) {
