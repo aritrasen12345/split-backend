@@ -4,11 +4,11 @@ const { Schema, model } = mongoose;
 
 const groupExpenseSchema = new Schema({
   status: {
-    type: String,
+    type: Schema.Types.String,
     default: "active",
   },
   date: {
-    type: Date,
+    type: Schema.Types.Date,
     required: true,
   },
   author: {
