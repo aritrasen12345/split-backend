@@ -17,7 +17,6 @@ const __dirname = dirname(__filename);
 
 import testApis from "./apis/testApis.js";
 import authApis from "./apis/authApis.js";
-// import authApis from "./apis/authApis";
 
 //app  and middleware
 const app = express();

@@ -18,13 +18,17 @@ const userSchema = new Schema(
     },
     isVerified: {
       type: Schema.Types.Boolean,
-      default: false
+      default: false,
     },
     uniqueString: {
-      type: Schema.Types.String
+      type: Schema.Types.String,
     },
     expirationTime: {
-      type: Schema.Types.Date
+      type: Schema.Types.Date,
+    },
+    isDeleted: {
+      type: Schema.Types.Boolean,
+      default: false,
     },
     expenses: [
       {
