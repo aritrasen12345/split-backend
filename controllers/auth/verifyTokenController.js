@@ -19,6 +19,8 @@ const verifyTokenController = async (req, res, next) => {
         // If user is found then hashing it's email and matching with token
         const isCorrect = await bcrypt.compare(foundUser.email, token);
         if(isCorrect) {
+            foundUser.isVerified = true;
+            await foundUser.save();
             return res.status(200).json({
                 status: true,
                 message: "Email verified successfully.",
