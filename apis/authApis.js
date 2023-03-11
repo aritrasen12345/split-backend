@@ -2,6 +2,7 @@ import express from "express";
 import { body } from "express-validator";
 
 import signUpController from "../controllers/auth/signUpController.js";
+import verifyTokenController from "../controllers/auth/verifyTokenController.js";
 import bodyErrorHandler from "../utils/bodyErrorHandler.js";
 
 const router = express.Router();
@@ -16,5 +17,7 @@ router.post(
   bodyErrorHandler,
   signUpController
 );
+
+router.post("/verify_token", [body("token").notEmpty().withMessage("Invalid token")], bodyErrorHandler, verifyTokenController)
 
 export default router;
