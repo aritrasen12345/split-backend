@@ -5,27 +5,27 @@ const { Schema, model } = mongoose;
 const expenseSchema = new Schema(
   {
     amount: {
-      type: Number,
+      type: Schema.Types.Number,
       required: true,
     },
     date: {
-      type: Date,
+      type: Schema.Types.Date,
       required: true,
     },
     paymentMethod: {
-      type: String,
+      type: Schema.Types.String,
       required: true,
       default: "other",
     },
     paymentId: {
-      type: String,
+      type: Schema.Types.String,
     },
     purpose: {
-      type: String,
+      type: Schema.Types.String,
       required: true,
     },
-    reciept: {
-      type: String,
+    receipt: {
+      type: Schema.Types.String,
     },
     user: {
       type: Schema.Types.ObjectId,
