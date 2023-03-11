@@ -3,7 +3,7 @@ import { body } from "express-validator";
 
 import signUpController from "../controllers/auth/signUpController.js";
 import verifyTokenController from "../controllers/auth/verifyTokenController.js";
-import bodyErrorHandler from "../utils/bodyErrorHandler.js";
+import {errorHandler} from "../utils/errorHandler.js"
 
 const router = express.Router();
 
@@ -14,10 +14,10 @@ router.post(
     body("email").isEmail().withMessage("Invalid email"),
     body("password").isStrongPassword().withMessage("Weak password"),
   ],
-  bodyErrorHandler,
+  errorHandler,
   signUpController
 );
 
-router.post("/verify_token", [body("token").notEmpty().withMessage("Invalid token")], bodyErrorHandler, verifyTokenController)
+router.post("/verify_token", [body("token").notEmpty().withMessage("Invalid token")], errorHandler, verifyTokenController)
 
 export default router;
