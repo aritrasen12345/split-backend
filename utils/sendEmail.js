@@ -1,47 +1,33 @@
-import Config from "../config/config.js";
 import nodemailer from "nodemailer";
-//create transporter
-const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
-  port: 587,
-  auth: {
-    user: Config.EMAIL,
-    pass: Config.PASSWORD,
-  },
-});
-// console.log(transporter);
+import config from "../config/config.js";
 
-//sending mail
-export const sendMail = async (emailTo, subject, text, html, file) => {
-  try {
-    let defaultmailOption = {
-      from: Config.EMAIL,
-      to: emailTo,
-      subject: subject,
-      text: text,
-      html: html,
-    };
-    let mailOption = {};
-    if (file) {
-      mailOption = {
-        ...defaultmailOption,
-        attachments: [
-          {
-            filename: "receipt",
-            path: file,
-          },
-        ],
-      };
-    } else {
-      mailOption = {
-        ...defaultmailOption,
-      };
-    }
-    //console.log(mailOption);
-    let resp = await transporter.sendMail(mailOption);
-    console.log(resp);
-    return resp;
-  } catch (err) {
-    console.log(err);
-  }
+const sendEmail = (receiver, subject, content) => {
+  const transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    auth: {
+      user: config.EMAIL,
+      pass: config.PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: receiver,
+    subject: subject,
+    html: content,
+  };
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(mailOptions, (err) => {
+      if (err) {
+        console.log(err);
+        reject(false);
+      } else {
+        console.log("Email send successfully");
+        resolve(true);
+      }
+    });
+  });
 };
+
+export default sendEmail;

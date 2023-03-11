@@ -5,26 +5,29 @@ const { Schema, model } = mongoose;
 const userSchema = new Schema(
   {
     email: {
-      type: String,
+      type: Schema.Types.String,
       required: true,
     },
     password: {
-      type: String,
+      type: Schema.Types.String,
       required: true,
     },
     name: {
-      type: String,
+      type: Schema.Types.String,
       required: true,
     },
-    expTime: {
-      type: Date,
-    },
-    verified: {
-      type: Boolean,
+    isVerified: {
+      type: Schema.Types.Boolean,
       default: false,
     },
+    uniqueString: {
+      type: Schema.Types.String,
+    },
+    expirationTime: {
+      type: Schema.Types.Date,
+    },
     isDeleted: {
-      type: Boolean,
+      type: Schema.Types.Boolean,
       default: false,
     },
     expenses: [
