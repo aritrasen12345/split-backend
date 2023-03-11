@@ -1,6 +1,6 @@
 import User from "../../models/User.js";
 import config from "../../config/config.js";
-import bcryptJs from "bcryptjs";
+import bcrypt from "bcryptjs";
 import Jwt from "jsonwebtoken";
 
 const loginController = async (req, res, next) => {
@@ -12,13 +12,13 @@ const loginController = async (req, res, next) => {
       isDeleted: false,
     });
     if (!user) {
-      return res.status(406).json({
+      return res.status(404).json({
         status: false,
         message: "User not found!",
         data: "",
       });
     }
-    const matchedPassword = await bcryptJs.compare(password, user.password);
+    const matchedPassword = await bcrypt.compare(password, user.password);
 
     if (!matchedPassword) {
       return res.status(406).json({
@@ -38,8 +38,7 @@ const loginController = async (req, res, next) => {
       }
     );
     const loginDetails = { ...user._doc };
-    delete loginDetails.hospitalPassword;
-    delete loginDetails.otp;
+    delete loginDetails.password;
     delete loginDetails.expTime;
 
     return res.status(200).json({

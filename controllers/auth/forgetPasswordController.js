@@ -1,6 +1,5 @@
 import User from "../../models/User.js";
-import config from "../../config/config.js";
-import genOtp from "../../utils/genOtp.js";
+// import config from "../../config/config.js";
 import { sendMail } from "../../utils/sendEmail.js";
 
 const forgetPasswordController = async (req, res, next) => {
@@ -8,13 +7,15 @@ const forgetPasswordController = async (req, res, next) => {
     const { id } = req.body;
     const user = await User.findOne({ _id: id });
     if (!user) {
-      return res.status(406).json({
+      return res.status(404).json({
         status: false,
         message: "User not found!",
         data: [],
       });
     }
-    const forgetPasswordOtp = genOtp();
+    // Create a unique string and
+
+    // const forgetPasswordOtp = genOtp();
     const currDate = new Date();
     const expTime = new Date(currDate.getTime() + 30 * 60000);
 

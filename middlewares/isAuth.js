@@ -18,7 +18,7 @@ export const isAuthenticated = async (req, res, next) => {
     if (!decoded) {
       res.status(401).json({
         status: false,
-        message: "Token expires",
+        message: "Token Expired",
         data: "",
       });
     }
