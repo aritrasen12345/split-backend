@@ -30,7 +30,7 @@ const loginController = async (req, res, next) => {
 
     const token = Jwt.sign(
       {
-        userId: user._id,
+        id: user._id,
       },
       config.JWT_ACTIVATE,
       {

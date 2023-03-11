@@ -15,6 +15,8 @@ const configDev = {
   DB_URL: process.env.DEV_DB_URL,
   DB_PASSWORD: process.env.DEV_DB_PASSWORD,
   JWT_ACTIVATE: process.env.DEV_JWT_ACTIVATE,
+  EMAIL: process.env.DEV_EMAIL,
+  PASSWORD: process.env.DEV_PASSWORD,
 };
 
 export default configDev;

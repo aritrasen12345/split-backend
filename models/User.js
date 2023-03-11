@@ -16,6 +16,20 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    otp: {
+      type: String,
+    },
+    expTime: {
+      type: Date,
+    },
+    verified: {
+      type: Boolean,
+      default: false,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
     expenses: [
       {
         type: Schema.Types.ObjectId,

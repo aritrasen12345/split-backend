@@ -22,8 +22,8 @@ export const isAuthenticated = async (req, res, next) => {
         data: "",
       });
     }
-    const { userId } = decoded;
-    req.userId = userId;
+    const { id } = decoded;
+    req.id = id;
     next();
   } catch (err) {
     next(err);

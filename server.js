@@ -23,6 +23,7 @@ const options = {
   useNewUrlParser: true,
 };
 
+mongoose.set("strictQuery", false);
 mongoose
   .connect(DB, options)
   .then(() => {
