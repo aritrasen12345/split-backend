@@ -32,7 +32,7 @@ const signUpController = async (req, res, next) => {
     await newUser.save();
     // As the user is saved send an email to the user's mail with the verification link
     const text = getSignUpEmailText(name, uniqueString);
-    const isSend = await sendEmail(email, text);
+    const isSend = await sendEmail(email, "Email verification : Split Expense", text);
     if (isSend) {
       return res.status(201).json({
         status: true,

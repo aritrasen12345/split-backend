@@ -4,7 +4,7 @@ import config from "../config/config.js";
 
 // console.log(config.EMAIL, config.PASSWORD);
 
-const sendEmail = (receiver, content) => {
+const sendEmail = (receiver, subject, content) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.ethereal.email",
     port: 587,
@@ -17,7 +17,7 @@ const sendEmail = (receiver, content) => {
   const mailOptions = {
     from: process.env.EMAIL,
     to: receiver,
-    subject: "Email verification : Split Expense",
+    subject: subject,
     html: content,
   };
   return new Promise((resolve, reject) => {
