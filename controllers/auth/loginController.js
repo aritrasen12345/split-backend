@@ -9,9 +9,11 @@ const loginController = async (req, res, next) => {
 
     const foundUser = await User.findOne({
       email,
-      isVerified: true,
+      isVerified: true, // Remove This
       isDeleted: false,
     }).select("name email password _id");
+
+    // If not verified then send "Verify Your Email"
 
     if (!foundUser) {
       return res.status(404).json({
