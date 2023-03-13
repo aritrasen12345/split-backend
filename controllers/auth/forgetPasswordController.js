@@ -1,7 +1,7 @@
 import User from "../../models/User.js";
 import sendMail from "../../utils/sendEmail.js";
 import getUniqueString from "../../utils/getUniqueString.js";
-import getSignUpEmailText from "../../utils/getSignUpEmailText.js";
+import getForgetPasswordEmailText from "../../utils/getForgetPasswordEmailText.js";
 
 const forgetPasswordController = async (req, res, next) => {
   try {
@@ -23,8 +23,8 @@ const forgetPasswordController = async (req, res, next) => {
 
     await foundUser.save();
 
-    // Get Verify URL Email Template
-    const text = getSignUpEmailText(foundUser.name, newUniqueString);
+    // Get Forget Password URL Email Template
+    const text = getForgetPasswordEmailText(foundUser.name, newUniqueString);
 
     const isSend = await sendMail(foundUser.email, "Forget Password", text);
 
