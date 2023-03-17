@@ -9,11 +9,8 @@ const loginController = async (req, res, next) => {
 
     const foundUser = await User.findOne({
       email,
-      isVerified: true, // Remove This
       isDeleted: false,
-    }).select("name email password _id");
-
-    // If not verified then send "Verify Your Email"
+    }).select("name email password _id isVerified");
 
     if (!foundUser) {
       return res.status(404).json({
@@ -22,6 +19,16 @@ const loginController = async (req, res, next) => {
         data: "",
       });
     }
+
+    // If not verified then send "Verify Your Email"
+    if (!foundUser.isVerified) {
+      return res.status(401).json({
+        status: false,
+        message: "Please Verify Your Account First!",
+        data: "",
+      });
+    }
+
     const matchedPassword = await bcrypt.compare(password, foundUser.password);
 
     if (!matchedPassword) {
